@@ -1,6 +1,6 @@
-# 📊 Feedback Analyzer
+# Feedback Analyzer
 
-> **Cloudflare PM Intern Assignment - Summer 2026**
+> **Cloudflare PM Intern Assignment - Summer 2026 (Lisbon, PT)**
 >
 > An AI-powered feedback aggregation and analysis tool built on Cloudflare's Developer Platform
 
@@ -13,15 +13,15 @@
 
 ## 🎯 Project Overview
 
-A production-ready feedback management system that demonstrates the power of Cloudflare's serverless platform. This tool aggregates customer feedback from multiple sources (GitHub, Discord, Twitter, Support Tickets, etc.) and uses AI to automatically analyze sentiment, extract themes, and prioritize by urgency.
+A feedback management system through Cloudflare's serverless platform. This tool is a prototype that aggregates customer feedback from multiple sources and uses AI to automatically analyze sentiment, extract themes, and prioritize by urgency. It is designed to help product teams move from unstructured feedback to actionable prioritization without manual tagging or spreadsheet-based workflows.
 
 ### Key Features
 
-- 🤖 **AI-Powered Analysis** - Automatic sentiment detection, theme extraction, and urgency classification using Workers AI
-- 📊 **Real-Time Analytics** - Live dashboard with aggregated statistics and visualizations
-- ⚡ **High Performance** - KV caching for sub-50ms response times on analytics queries
-- 🌐 **Global Scale** - Deployed on Cloudflare's edge network for low-latency worldwide
-- 🎨 **Clean UI** - Professional dashboard with no external dependencies
+- **AI-Powered Analysis** - Automatic sentiment detection, theme extraction, and urgency classification using Workers AI
+- **Real-Time Analytics** - Live dashboard with aggregated statistics and visualizations
+- **High Performance** - KV caching for low-latency response times on analytics queries
+- **Global Scale** - Deployed on Cloudflare's edge network for low-latency worldwide
+- **Clean UI** - Professional dashboard with no external dependencies
 
 ---
 
@@ -33,7 +33,7 @@ A production-ready feedback management system that demonstrates the power of Clo
 |---------|---------|-----------------|
 | **Workers** | Application runtime & API | Serverless, globally distributed, scales automatically. Perfect for API endpoints and serving HTML. |
 | **D1 Database** | Feedback storage | SQL database at the edge. Familiar syntax, powerful queries, built-in replication. Ideal for structured feedback data. |
-| **Workers AI** | Sentiment & theme analysis | On-platform AI inference with Llama-3-8b. No external API keys or latency overhead. |
+| **Workers AI** | Sentiment & theme analysis | On-platform LLM inference (Llama-3-8b), avoiding external APIs and reducing latency. |
 | **KV** | Analytics caching | Ultra-fast key-value store. Cache expensive aggregate queries to reduce D1 load and improve response times. |
 
 ### Architecture Diagram
@@ -276,22 +276,28 @@ Get aggregated analytics (cached for 5 minutes)
 
 ### Technical Skills Demonstrated
 
-- ✅ Serverless architecture design
-- ✅ RESTful API development
-- ✅ SQL database schema design
-- ✅ AI/ML integration for text analysis
-- ✅ Caching strategies for performance
-- ✅ Frontend development (vanilla JS)
-- ✅ TypeScript for type safety
+- Serverless architecture design
+- RESTful API development
+- SQL database schema design
+- AI/ML integration for text analysis
+- Caching strategies for performance
+- Frontend development (vanilla JS)
+- TypeScript for type safety
 
 ### Product Skills Demonstrated
 
-- ✅ Problem definition and solution design
-- ✅ Technology selection and justification
-- ✅ User experience design (dashboard)
-- ✅ Performance optimization
-- ✅ Product friction identification
-- ✅ Documentation and communication
+- Problem definition and solution design
+- Technology selection and justification
+- User experience design (dashboard)
+- Performance optimization
+- Product friction identification
+- Documentation and communication
+
+---
+
+## 🎯 Future Work
+
+Add authentication and role-based access, introduce feedback source integrations via webhooks, and expand analytics with trend detection and alerting for emerging issues.
 
 ---
 
@@ -303,15 +309,3 @@ Built for the **Cloudflare PM Intern Assignment - Summer 2026**
 - [Claude Code](https://claude.com/claude-code) - AI-assisted development
 - [Cloudflare Developer Platform](https://developers.cloudflare.com/)
 - TypeScript, SQL, HTML/CSS/JS
-
----
-
-## 📧 Contact
-
-**Paula Yaniz**
-- Assignment: PM Intern Summer 2026
-- Submission Date: January 2026
-
----
-
-**⭐ If you found this useful, star the repo!**
