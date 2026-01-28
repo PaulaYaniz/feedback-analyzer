@@ -1,0 +1,50 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "feedback-analyzer",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-09-27",
+	"observability": {
+		"enabled": true
+	},
+	/**
+	 * Smart Placement (Cloudflare Best Practice)
+	 * Automatically places Worker execution close to D1/KV resources
+	 * Improves latency when accessing bindings
+	 * https://developers.cloudflare.com/workers/configuration/smart-placement/
+	 */
+	"placement": {
+		"mode": "smart"
+	},
+	/**
+	 * D1 Database Binding
+	 * Store feedback entries with metadata
+	 */
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "feedback-db",
+			"database_id": "7d824b90-002d-4856-8584-3d06cc1a9b24"
+		}
+	],
+	/**
+	 * Workers AI Binding
+	 * For sentiment analysis and theme extraction
+	 */
+	"ai": {
+		"binding": "AI"
+	},
+	/**
+	 * KV Namespace Binding
+	 * Cache aggregated analytics
+	 */
+	"kv_namespaces": [
+		{
+			"binding": "CACHE",
+			"id": "590c3843585240cea276ed9210bff6e1"
+		}
+	]
+}
