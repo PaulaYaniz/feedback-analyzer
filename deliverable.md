@@ -12,8 +12,6 @@ GitHub URL: https://github.com/PaulaYaniz/feedback-analyzer
 ## Context
 First time using Cloudflare Workers. I've only used Vercel before. Built a feedback aggregation tool with D1, KV, and Workers AI in about 2 hours.
 
----
-
 ## Insight 1
 
 **Title:** Auth setup blocked me before writing any code
@@ -52,7 +50,7 @@ Or even better: add auth to the initial setup flow:
 ✓ Authenticated as john@example.com
 ```
 
----
+
 
 ## Insight 2
 
@@ -84,7 +82,7 @@ Just ask me:
 
 Or add a `wrangler setup` command that creates all the resources at once and updates config automatically.
 
----
+
 
 ## Insight 3
 
@@ -130,7 +128,7 @@ $ wrangler dev --mock-ai
   ⚠ AI will return mock responses for faster testing
 ```
 
----
+
 
 ## Insight 4
 
@@ -170,7 +168,7 @@ Try: wrangler ai test distilbert-sst-2-int8 --input "I love this!"
 
 Or add an AI playground in the dashboard where I can test models with my data before committing to code.
 
----
+
 
 ## Insight 5
 
@@ -191,6 +189,7 @@ Show the architecture, explain why you'd pick each product, give working code th
 
 AWS has this with "solution architectures." Vercel has great guides for specific app types. Cloudflare product docs are good but need more integration examples.
 
+---
 # Architecture Overview
 
 ## Cloudflare Products Used
@@ -198,22 +197,22 @@ AWS has this with "solution architectures." Vercel has great guides for specific
 ### 1. Cloudflare Workers
 Serverless compute platform that runs the entire application at the edge in 300+ cities worldwide. Workers hosts all API endpoints, AI orchestration logic, and dashboard HTML in a single codebase with low-latency response times suitable for interactive dashboards. Chose Workers because it eliminates server management, deploys with a single command, and provides native bindings to D1, Workers AI, and KV without external API calls. Workers provides the runtime and routing primitives, while caching and error handling are explicitly implemented in the Worker
 
----
+
 
 ### 2. D1 Database
 SQLite database running at Cloudflare's edge that stores all feedback entries with metadata including source, text, sentiment, themes, urgency, and timestamps. Selected D1 for its familiar SQL syntax, low-latency reads from the nearest location, and serverless model that requires no database server management. The schema includes indexes, like sentiment and urgency, optimized for fast aggregation queries needed for PM analytics. 
 
----
+
 
 ### 3. Workers AI
 On-platform AI inference service that analyzes feedback using the Llama-3-8b-instruct model to extract sentiment (positive/negative/neutral), themes (bug, feature-request, performance, UX, etc.), and urgency levels (low/medium/high). Chose Workers AI because the model runs directly on Cloudflare's network with no external API dependencies, keeping data private and latency low. Implemented lightweight parallel batch processing to analyze multiple feedback items concurrently, significantly reducing total analysis time. Simple per-request pricing with no API key management.
 
----
+
 
 ### 4. Workers KV
 Global key-value storage that caches aggregated statistics and insights with 5-minute TTL to avoid recalculating on every request. KV provides sub-10ms reads from edge cache locations worldwide, materially reducing repeated D1 queries. Selected KV for its simple get/put API, automatic expiration support, and edge caching capabilities with the cacheTtl parameter (60s minimum). Metadata tracking on cached values includes timestamps, record counts, and version for debugging cache behavior.
 
----
+
 
 ## Why This Stack?
 
@@ -227,7 +226,7 @@ Global key-value storage that caches aggregated statistics and insights with 5-m
 
 **Integration:** Native bindings reduce integration overhead and configuration complexity.
 
----
+
 
 ## Data Flow
 
@@ -245,7 +244,7 @@ Cache results in KV (5 min TTL)
 Return with Cache-Control headers
 ```
 
----
+
 
 ## Technical Details
 
@@ -254,23 +253,24 @@ Return with Cache-Control headers
 - Workers: Smart Placement enabled
 - HTTP Cache-Control headers
 
----
+
 
 ## Bindings Screenshot
 
 ![Workers Bindings](bindings-screenshot.png)
 
----
+
 
 ## Summary
 Four Cloudflare products working together enable a globally-distributed, AI-powered feedback tool that runs fast (2-3s analysis), costs pennies, and scales automatically. The integrated platform eliminated the nedd for upfront infrastructure setup and third-party integrations.
 
+---
 # Vibe-Coding Prompts
 
 **Platform Used:** Claude Code CLI (Anthropic) 
 Note: Prompts evolved over time; examples below reflect representative prompts rather than a literal sequence. Some prompts were also crafted with the help of claude.ai and ChatGPT.
 
----
+
 
 ## Example Prompts
 
@@ -323,7 +323,6 @@ Note: Prompts evolved over time; examples below reflect representative prompts r
 "Current implementation works but is too slow for PM workflows. Three improvements: 1) Parallel AI processing to cut latency by 60%+, 2) Add Insights tab with actionable recommendations, 3) Filter and export capabilities. Maintain backward compatibility."
 ```
 
----
 
 ## Key Approach
 
